@@ -1,34 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { Routes, Route, Link } from 'react-router-dom';
+import { Layout, Typography, Space } from 'antd';
 import './App.css'
-
+import { Navbar, Exchanges, HomePage, Cryptocurrencies, CryptoDetails } from './components';
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="app">
+        <div className="navbar">
+            <Navbar/>
+        </div>
+        <div className="main">
+            <Layout>
+                <div className="routes">
+                    <Routes>
+                        <Route path="/" element={<HomePage/>}/>
+                        <Route path="/exchanges" element={<Exchanges/>}/>
+                        <Route path="/cryptocurrencies" element={<Cryptocurrencies/>}/>
+                        <Route path="/crypto/:coinId" element={<CryptoDetails/>}/>
+                    </Routes>
+                </div>
+            </Layout>
+            <div className="footer">
+                <Typography.Title level={5} style={{color: 'white', textAlign: 'center'}}>
+                    Cryptoco <br/>
+                </Typography.Title>
+                <Space>
+                    <Link to="/">Home</Link>
+                    <Link to="/cryptocurrencies">Cryptocurrencies</Link>
+                    <Link to="/exchanges">Exchanges</Link>
+                </Space>
+            </div>
+        </div>
+
+    </div>
   )
 }
 
