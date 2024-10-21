@@ -1,10 +1,10 @@
 import { useSelector } from 'react-redux';
-import { useGetGlobalCryptoStatsQuery } from '../services/cryptoApi.ts';
-import { Typography, Row, Result, Button } from 'antd';
+import { useGetGlobalCryptoStatsQuery } from '../../services/cryptoApi.ts';
+import {Typography, Row, Result, Button, Divider} from 'antd';
 import millify from 'millify';
-import { currencySymbols } from '../types/currencySymbols.ts';
-import type { RootState } from '../app/store.ts';
-import CustomStatistic from './CustomStatistic';
+import { currencySymbols } from '../../types/currencySymbols.ts';
+import type { RootState } from '../../app/store.ts';
+import CustomStatistic from '../CryptoDetails/CustomStatistic.tsx';
 
 const GlobalCryptoStats = () => {
     const selectedCurrency = useSelector((state: RootState) => state.currency.selectedCurrency);
@@ -39,8 +39,9 @@ const GlobalCryptoStats = () => {
     return (
         <div className="global-crypto-stats">
             <Typography.Title level={2} className="heading">
-                Global Cryptocurrency Stats
+                Global Cryptocurrency Statistics
             </Typography.Title>
+            <Divider />
             <Row gutter={[32, 32]}>
                 <CustomStatistic
                     title="Total Cryptocurrencies"
@@ -78,6 +79,7 @@ const GlobalCryptoStats = () => {
                     isLoading={isFetching}
                 />
             </Row>
+            <Divider />
         </div>
     );
 };

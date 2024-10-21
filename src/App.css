@@ -22,6 +22,10 @@ a:hover {
   color: var(--pink) !important;
 }
 
+a:focus {
+  color: white !important;
+}
+
 .app {
   display: flex;
   min-height: 100vh; /* Ensure the app takes the full viewport height */
@@ -125,7 +129,7 @@ a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
 }
 .search-skeleton {
   width: 250px; /* Set width similar to actual search bar */
@@ -150,13 +154,23 @@ a:hover {
 /* For title (rank + title skeleton) */
 .rank-title-skeleton {
   width: 150px;
-  height: 24px;
+  height: 20px;
+}
+
+.rank-title-skeleton-lg {
+  width: 150px;
+  height: 30px;
+}
+
+.rank-title-skeleton-xl {
+  width: 200px;
+  height: 40px;
 }
 
 /* For the avatar (right side circle skeleton) */
 .avatar-skeleton {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
 }
 
@@ -167,8 +181,24 @@ a:hover {
   gap: 8px;
 }
 
+
 .line-skeleton {
-  width: 80%;
+  width: 70%;
+  height: 16px;
+}
+
+.line-skeleton-med {
+  width: 50%;
+  height: 16px;
+}
+
+.line-skeleton-short {
+  width: 40%;
+  height: 16px;
+}
+
+.line-skeleton-sml {
+  width: 15%;
   height: 16px;
 }
 
@@ -185,17 +215,69 @@ a:hover {
   }
 }
 
-
-
-.loader {
-  height: 81vh;
+.custom-skeleton-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.skeleton-select-dropdown {
+  width: 150px;
+  height: 32px;
+  animation: pulse 1.5s infinite ease-in-out;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+}
+
+.skeleton-title {
+  animation: pulse 1.5s infinite ease-in-out;
+  width: 40%;
+  height: 32px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+}
+
+.skeleton-stats {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+}
+
+.skeleton-stats-item {
+  animation: pulse 1.5s infinite ease-in-out;
+  width: 100px;
+  height: 24px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+}
+
+.skeleton-chart {
+  animation: pulse 1.5s infinite ease-in-out;
+  width: 100%;
+  height: 507px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+}
+
+.line-chart-container {
+  width: 100%;
+  height: 400px; /* Adjust height as needed */
+  min-height: 300px;
+}
+
+
+@media screen and (min-width: 801px) {
+  .footer {
+    display: none !important;
+  }
 }
 
 /* Adjustments for smaller devices */
 @media screen and (max-width: 800px) {
+  .footer {
+    display: flex;
+  }
+
   .app {
     flex-direction: column;
     overflow: hidden;
@@ -209,7 +291,6 @@ a:hover {
   .main {
     margin-left: 0; /* Reset margin-left */
     margin-top: 90px; /* Adjust top margin to accommodate the navbar */
-    margin-right: 10px;
   }
 
   .nav-container {
@@ -226,7 +307,7 @@ a:hover {
 
   .ant-menu {
     position: absolute;
-    right: 0px;
+    right: 0;
   }
 
   .home-title {
@@ -268,7 +349,7 @@ a:hover {
 /* Adjusted stats-container to center children at the top */
 .stats-container {
   display: flex;
-  justify-content: space-between; /* Aligns content to the top */
+  justify-content: space-around; /* Aligns content to the top */
   align-items: center; /* Centers content horizontally */
   gap: 40px;
 }
@@ -340,7 +421,7 @@ a:hover {
 }
 
 .coin-links {
-  padding: 0px 20px;
+  padding: 0 20px;
   flex: 0.5;
 }
 
@@ -368,6 +449,12 @@ a:hover {
   background-color: var(--bgSecondary);
 }
 
+.wide-columns {
+  width: 60%; /* Increase width for the two columns */
+  min-width: 300px; /* Ensure they don't shrink too much */
+  padding: 10px; /* Add some padding */
+}
+
 /* Responsive adjustments */
 @media screen and (max-width: 1000px) {
   .stats-container {
@@ -380,13 +467,13 @@ a:hover {
   }
 
   .stats-container h2 {
-    margin-top: 0px;
+    margin-top: 0;
   }
 }
 
 @media screen and (max-width: 500px) {
   .coin-links {
-    padding: 0px;
+    padding: 0;
   }
 
   .coin-detail-container {
@@ -423,7 +510,7 @@ a:hover {
 
 .news-card p {
   color: black;
-  margin: 10px 0px !important;
+  margin: 10px 0 !important;
 }
 
 .provider-container {
@@ -459,7 +546,7 @@ a:hover {
 }
 
 .current-price {
-  margin-top: 0px !important;
+  margin-top: 0 !important;
   font-weight: 900 !important;
 }
 
@@ -472,11 +559,11 @@ a:hover {
 }
 
 .show-more {
-  margin-top: 0px !important;
+  margin-top: 0 !important;
 }
 
 .exchange-image {
-  margin: 0px 10px !important;
+  margin: 0 10px !important;
 }
 
 /* Cryptocurrencies Component Styles */
@@ -497,9 +584,18 @@ a:hover {
   width: 35px;
 }
 
+.crypto-image {
+  width: 35px;
+}
+
 .select-timeperiod {
-  width: 200px !important;
+  width: 120px !important;
   margin-top: 20px !important;
+}
+
+.select-datatype {
+  width: 120px !important;
+
 }
 
 .currency-select {
@@ -528,6 +624,7 @@ a:hover {
   display: flex;
   flex-direction: column;
   padding: 20px;
+  justify-content: center;
   align-items: center;
   margin-top: auto; /* Push the footer to the bottom */
 }
@@ -536,6 +633,7 @@ a:hover {
 /*External Css*/
 
 .ant-menu-item.ant-menu-item-selected {
+  color: white !important;
   background-color: transparent !important; /* Remove background */
   border: none !important; /* Remove any borders */
   box-shadow: none !important; /* Remove any shadow */
