@@ -1,13 +1,12 @@
 import React from 'react';
 import millify from 'millify';
-import { Collapse, Row, Col, Typography, Avatar, Spin, Result, Button } from 'antd';
+import { Collapse, Row, Col, Typography, Avatar, Skeleton, Result, Button, Divider } from 'antd';
 import HTMLReactParser from 'html-react-parser';
 
 import { useGetExchangesQuery } from '../services/cryptoApi.ts';
-import {Exchange} from "../types/exchange.ts";
+import { Exchange } from "../types/exchange.ts";
 
-
-const { Text } = Typography;
+const { Text, Title } = Typography;
 const { Panel } = Collapse;
 
 const Exchanges: React.FC = () => {
@@ -16,9 +15,57 @@ const Exchanges: React.FC = () => {
     // Loading state
     if (isFetching) {
         return (
-            <div className="loading-container">
-                <Spin size="large" tip="Loading exchanges..." />
-            </div>
+            <>
+                <Typography.Title level={2} style={{ textAlign: 'center' }}>
+                    Exchanges
+                </Typography.Title>
+                <Divider />
+                <Row style={{ marginBottom: '16px' }}>
+                    <Col span={6}>
+                        <Title level={4} style={{ textTransform: 'uppercase' }}>Exchanges</Title>
+                    </Col>
+                    <Col span={6}>
+                        <Title level={4} style={{ textTransform: 'uppercase' }}>24h Trade Volume (BTC)</Title>
+                    </Col>
+                    <Col span={6}>
+                        <Title level={4} style={{ textTransform: 'uppercase' }}>Country</Title>
+                    </Col>
+                    <Col span={6}>
+                        <Title level={4} style={{ textTransform: 'uppercase' }}>Trust Score</Title>
+                    </Col>
+                </Row>
+                <Row>
+                    {Array.from({ length: 20 }).map((_, index) => (
+                        <Col span={24} key={index}>
+                            <Collapse>
+                                <Panel
+                                    key={index}
+                                    showArrow={false}
+                                    header={(
+                                        <Row key={index}>
+                                            <Col span={6} style={{ display: 'flex', alignItems: 'center' }}>
+                                                <Skeleton.Avatar active size="large" />
+                                                <Skeleton.Input active style={{ width: 150, marginLeft: 16, height: 20 }} />
+                                            </Col>
+                                            <Col span={6} style={{ display: 'flex', alignItems: 'center' }}>
+                                                <Skeleton.Input active style={{ width: 100, height: 20 }} />
+                                            </Col>
+                                            <Col span={6} style={{ display: 'flex', alignItems: 'center' }}>
+                                                <Skeleton.Input active style={{ width: 100, height: 20 }} />
+                                            </Col>
+                                            <Col span={6} style={{ display: 'flex', alignItems: 'center' }}>
+                                                <Skeleton.Input active style={{ height: 20 }} />
+                                            </Col>
+                                        </Row>
+                                    )}
+                                >
+                                    <Skeleton active paragraph={{ rows: 3 }} />
+                                </Panel>
+                            </Collapse>
+                        </Col>
+                    ))}
+                </Row>
+            </>
         );
     }
 
@@ -42,11 +89,23 @@ const Exchanges: React.FC = () => {
 
     return (
         <>
-            <Row>
-                <Col span={6}><strong>Exchanges</strong></Col>
-                <Col span={6}><strong>24h Trade Volume (BTC)</strong></Col>
-                <Col span={6}><strong>Country</strong></Col>
-                <Col span={6}><strong>Trust Score</strong></Col>
+            <Typography.Title level={2} style={{ textAlign: 'center' }}>
+                Exchanges
+            </Typography.Title>
+            <Divider />
+            <Row style={{ marginBottom: '16px' }}>
+                <Col span={6}>
+                    <Title level={4} style={{ textTransform: 'uppercase' }}>Exchanges</Title>
+                </Col>
+                <Col span={6}>
+                    <Title level={4} style={{ textTransform: 'uppercase' }}>24h Trade Volume (BTC)</Title>
+                </Col>
+                <Col span={6}>
+                    <Title level={4} style={{ textTransform: 'uppercase' }}>Country</Title>
+                </Col>
+                <Col span={6}>
+                    <Title level={4} style={{ textTransform: 'uppercase' }}>Trust Score</Title>
+                </Col>
             </Row>
             <Row>
                 {exchangesList?.map((exchange: Exchange) => (
@@ -57,10 +116,10 @@ const Exchanges: React.FC = () => {
                                 showArrow={false}
                                 header={(
                                     <Row key={exchange.id}>
-                                        <Col span={6}>
+                                        <Col span={6} style={{ display: 'flex', alignItems: 'center' }}>
                                             <Text><strong>{exchange.trust_score_rank}.</strong></Text>
-                                            <Avatar className="exchange-image" src={exchange.image} />
-                                            <Text><strong>{exchange.name}</strong></Text>
+                                            <Avatar className="exchange-image" src={exchange.image} style={{ marginLeft: '8px' }} />
+                                            <Text style={{ marginLeft: '8px' }}><strong>{exchange.name}</strong></Text>
                                         </Col>
                                         <Col span={6}>{millify(exchange.trade_volume_24h_btc)} BTC</Col>
                                         <Col span={6}>{exchange.country || 'N/A'}</Col>

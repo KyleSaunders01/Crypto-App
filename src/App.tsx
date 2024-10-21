@@ -1,7 +1,8 @@
 import { Routes, Route, Link } from 'react-router-dom';
-import { Layout, Typography, Space } from 'antd';
+import {Layout, Typography, Space, Avatar} from 'antd';
 import './App.css'
 import { Navbar, Exchanges, HomePage, Cryptocurrencies, CryptoDetails } from './components';
+import icon from "../public/cryptoco.png";
 function App() {
 
   return (
@@ -21,6 +22,8 @@ function App() {
                 </div>
             </Layout>
             <div className="footer">
+
+                <Avatar src={icon} size="small"/>
                 <Typography.Title level={5} style={{color: 'white', textAlign: 'center'}}>
                     Cryptoco <br/>
                 </Typography.Title>

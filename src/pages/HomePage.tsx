@@ -1,7 +1,7 @@
 import { Typography } from 'antd';
 import { Link } from 'react-router-dom';
 import { Cryptocurrencies } from '../components';
-import GlobalCryptoStats from '../components/GlobalCryptoStats.tsx';
+import GlobalCryptoStats from '../components/HomePage/GlobalCryptoStats.tsx';
 
 const { Title } = Typography;
 
@@ -19,7 +19,8 @@ const HomePage = () => {
                 </Title>
             </div>
 
-            <Cryptocurrencies limit={10} />
+
+            <Cryptocurrencies limit={10} showSearchAndTitle={false}/>
         </>
     );
 };

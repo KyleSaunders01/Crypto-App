@@ -1,3 +1,4 @@
+// services/cryptoApi.ts
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Exchange } from '../types/exchange';
 
@@ -7,9 +8,8 @@ export const cryptoApi = createApi({
     reducerPath: 'cryptoApi',
     baseQuery: fetchBaseQuery({ baseUrl }),
     endpoints: (builder) => ({
-        getCryptos: builder.query({
-            query: (currency: string) =>
-                `/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=100&page=1`,
+        getCryptos: builder.query<Crypto[], { currency: string; page: number; perPage: number }>({
+            query: ({ currency, page, perPage }) => `coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=${perPage}&page=${page}`,
         }),
         getCryptoDetails: builder.query({
             query: ({
@@ -64,7 +64,7 @@ export const cryptoApi = createApi({
 });
 
 export const {
-    useGetCryptosQuery,
+    useLazyGetCryptosQuery, // Add this line
     useGetGlobalCryptoStatsQuery,
     useGetCryptoDetailsQuery,
     useGetCryptoHistoryQuery,
