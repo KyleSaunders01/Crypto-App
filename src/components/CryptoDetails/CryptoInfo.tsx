@@ -7,6 +7,7 @@ import { formatCurrency } from '../../utils/formatCurrency';
 import { RootState } from '../../app/store';
 import { useGetCryptoDetailsQuery } from '../../services/cryptoApi';
 import { setCryptoDetails, setCryptoDetailsError } from "../../app/cryptoDetailsSlice.ts"
+import millify from "millify";
 
 const { Title, Text } = Typography;
 
@@ -140,14 +141,14 @@ const CryptoInfo: React.FC<CryptoInfoProps> = ({ coinId }) => {
         {
             title: 'Total Supply',
             value: cryptoDetails?.total_supply
-                ? formatCurrency(cryptoDetails?.total_supply, selectedCurrency)
+                ? millify(cryptoDetails?.total_supply, { precision: 3})
                 : 'N/A',
             icon: <ExclamationCircleOutlined />,
         },
         {
             title: 'Circulating Supply',
             value: cryptoDetails?.circulating_supply
-                ? formatCurrency(cryptoDetails?.circulating_supply, selectedCurrency)
+                ? millify(cryptoDetails?.circulating_supply, { precision: 3})
                 : 'N/A',
             icon: <ExclamationCircleOutlined />,
         },
