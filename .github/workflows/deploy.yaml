@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # Adjust if your main branch is named differently
+      - main  # or 'dev', your default branch
 
 jobs:
   deploy:
@@ -25,7 +25,9 @@ jobs:
         run: npm run build
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: crazy-max/ghaction-github-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKENg }}  # Use the secret here
-          publish_dir: ./dist
+          target_branch: gh-pages  # Target the 'gh-pages' branch
+          build_dir: dist           # Directory containing the built files
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Use the built-in token
