@@ -46,7 +46,7 @@ This project is built with the following technologies:
 
 The project follows a component-based architecture, leveraging Redux for state management and React Router for navigation.
 
-- `src/components/`: Contains all the UI components like `CryptoCard`, `CryptoDetails`, `CryptoInfo`, and loaders.
+- `src/components/`: Contains all the UI components like `CryptoCard`, `CryptoCurrencies`, `CryptoInfo`, and loaders.
 - `src/services/cryptoApi.ts`: Handles all API requests to the Coingecko API using `createApi` from Redux Toolkit.
 - `src/app/store.ts`: Configures the Redux store and integrates the API.
 - `src/pages/`: Houses the main pages, such as `CryptoDetails` and `Exchanges`.
