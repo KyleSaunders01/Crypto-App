@@ -153,7 +153,7 @@ a:focus {
 
 /* For title (rank + title skeleton) */
 .rank-title-skeleton {
-  width: 150px;
+  width: 120px;
   height: 20px;
 }
 
@@ -271,9 +271,25 @@ a:focus {
     display: none !important;
   }
 }
+/* styles.css */
+.title-mobile {
+  text-transform: uppercase;
+  font-size: 12px; /* Small font size for mobile */
+}
+
+.title-desktop {
+  text-transform: uppercase;
+  font-size: 16px; /* Default font size for larger screens */
+}
+
 
 /* Adjustments for smaller devices */
 @media screen and (max-width: 800px) {
+
+  .title-mobile {
+    font-size: 4px !important; /* Revert to default size on larger screens */
+  }
+
   .footer {
     display: flex;
   }

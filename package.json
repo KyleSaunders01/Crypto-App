@@ -1,18 +1,22 @@
 {
-  "name": "crypto-app",
+
+  "name",: "crypto-app",
   "private": true,
+  "homepage": "https://github.com/KyleSaunders01/Crypto-App",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "vite build && vite gh-pages"
   },
+
   "dependencies": {
     "@ant-design/icons": "^5.5.1",
     "@reduxjs/toolkit": "^2.3.0",
-    "antd": "^5.21.4",
+    "antd": "^5.21.5",
     "axios": "^1.7.7",
     "chart.js": "^4.4.5",
     "chartjs-adapter-date-fns": "^3.0.0",
@@ -39,6 +43,7 @@
     "globals": "^15.9.0",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.7.0",
-    "vite": "^5.4.8"
+    "vite": "^5.4.8",
+    "vite-plugin-gh-pages": "^1.0.0"
   }
 }

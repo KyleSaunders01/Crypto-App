@@ -43,8 +43,8 @@ const cryptoReducer = (state: CryptocurrenciesState, action: Action): Cryptocurr
             return {
                 ...state,
                 cryptos: action.append
-                    ? [...state.cryptos, ...action.payload] // Append new data for subsequent pages
-                    : action.payload, // Replace data when fetching the first page
+                    ? [...state.cryptos, ...action.payload]
+                    : action.payload,
                 hasMore: action.payload.length > 0,
             };
         case 'SET_SEARCH_TERM':
@@ -76,13 +76,11 @@ const Cryptocurrencies: React.FC<CryptocurrenciesProps> = ({ limit, showSearchAn
         }
     };
 
-    // Fetch data when currency changes or initial load
     useEffect(() => {
-        dispatch({ type: 'RESET_CRYPTOS' }); // Reset state when currency or initial load changes
-        fetchCryptos(1, false); // Fetch first page and reset data
+        dispatch({ type: 'RESET_CRYPTOS' });
+        fetchCryptos(1, false);
     }, [selectedCurrency]);
 
-    // Debounce search term
     useEffect(() => {
         if (debouncedSearchTerm) {
             dispatch({ type: 'SET_SEARCH_TERM', payload: debouncedSearchTerm });
@@ -91,15 +89,14 @@ const Cryptocurrencies: React.FC<CryptocurrenciesProps> = ({ limit, showSearchAn
 
     const fetchMoreData = async () => {
         const nextPage = state.page + 1;
-        fetchCryptos(nextPage, true); // Append data for subsequent pages
+        fetchCryptos(nextPage, true);
         dispatch({ type: 'SET_PAGE', payload: nextPage });
     };
 
-    // Limit displayed cryptocurrencies when `limit` is provided
     const displayedCryptos = limit ? state.cryptos.slice(0, limit) : state.cryptos;
 
-    if (isFetching && state.page === 1) {
-        return <SkeletonLoader count={limit || 50} />;
+    if (isFetching && state.page === 1 ) {
+        return <SkeletonLoader count={limit || 50} showSearchAndTitle={showSearchAndTitle} />;
     }
 
     return (
@@ -117,7 +114,7 @@ const Cryptocurrencies: React.FC<CryptocurrenciesProps> = ({ limit, showSearchAn
                 dataLength={displayedCryptos.length}
                 next={fetchMoreData}
                 hasMore={limit ? displayedCryptos.length < limit : state.hasMore}
-                loader={<SkeletonLoader count={8} />}
+                loader={<SkeletonLoader count={8} showSearchAndTitle={false} />}
             >
                 <Row gutter={[32, 32]} className="crypto-card-container">
                     {displayedCryptos.length > 0 ? (

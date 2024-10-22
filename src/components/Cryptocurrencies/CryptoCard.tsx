@@ -3,6 +3,7 @@ import { Card } from 'antd';
 import { Link } from 'react-router-dom';
 import { Crypto } from '../../types/crypto';
 import { formatCurrency } from '../../utils/formatCurrency';
+import millify from "millify";
 
 interface CryptoCardProps {
     currency: Crypto;
@@ -19,7 +20,7 @@ const CryptoCard: React.FC<CryptoCardProps> = ({ currency, selectedCurrency }) =
             >
                 <p>Price: {formatCurrency(currency.current_price, selectedCurrency)}</p>
                 <p>Market Cap: {formatCurrency(currency.market_cap, selectedCurrency)}</p>
-                <p>Daily Change: {currency.price_change_percentage_24h}%</p>
+                <p>Daily Change: {millify(currency.price_change_percentage_24h, { precision: 2})}%</p>
             </Card>
         </Link>
     );
