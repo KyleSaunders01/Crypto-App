@@ -46,14 +46,23 @@ const LineChart: React.FC<LineChartProps> = ({ coinId }) => {
         currencySymbols[selectedCurrency.toLowerCase()] ||
         selectedCurrency.toUpperCase();
 
+    //Storing these timePeriod and dataType in localstorage so that when you get a 429 response and refresh after a minute,
+    //you pick up where you left off.
     const [timePeriod, setTimePeriod] = useState<string>(
         () => localStorage.getItem('selectedTimePeriod') || '7'
     );
-    const [dataType, setDataType] = useState<string>('price');
 
     useEffect(() => {
         localStorage.setItem('selectedTimePeriod', timePeriod);
     }, [timePeriod]);
+
+    const [dataType, setDataType] = useState<string>(
+        () => localStorage.getItem('dataType') || 'price'
+    );
+
+    useEffect(() => {
+        localStorage.setItem('dataType', dataType);
+    }, [dataType]);
 
     const timeOptions = [
         { label: '24hrs', value: '1' },
@@ -77,7 +86,6 @@ const LineChart: React.FC<LineChartProps> = ({ coinId }) => {
         currency: selectedCurrency,
     });
 
-    // Fetch crypto details from Redux store
     const coinDetailsData = useSelector(
         (state: RootState) => state.cryptoDetails.details[coinId]
     );
@@ -113,13 +121,11 @@ const LineChart: React.FC<LineChartProps> = ({ coinId }) => {
         );
     }
 
-    // Extract coin name
     const coinName = coinDetailsData?.name || 'Unknown';
     const coinTimestamp: Date[] = coinHistoryData.prices.map(
         ([timestamp]: [number, number]) => new Date(timestamp)
     );
 
-    // Extract data based on dataType
     let dataValues: number[] = [];
     let dataLabel: string = '';
 
@@ -140,11 +146,9 @@ const LineChart: React.FC<LineChartProps> = ({ coinId }) => {
         dataLabel = `Total Volume of ${coinName} in ${currencySymbol}`;
     }
 
-    // Calculate data change
     const dataChange =
         ((dataValues[dataValues.length - 1] - dataValues[0]) / dataValues[0]) * 100;
 
-    // Get current value
     let currentValue = '';
     const selectedCurrencyLower = selectedCurrency.toLowerCase();
     if (dataType === 'price') {
@@ -158,6 +162,7 @@ const LineChart: React.FC<LineChartProps> = ({ coinId }) => {
         currentValue =
             coinDetailsData?.market_data?.total_volume?.[selectedCurrencyLower] || '';
     }
+
 
     const data = {
         labels: coinTimestamp,
@@ -185,12 +190,16 @@ const LineChart: React.FC<LineChartProps> = ({ coinId }) => {
                 ticks: {
                     source: 'auto',
                     autoSkip: true,
-                    maxTicksLimit:
-                        timePeriodInHours === 24 ? 24 : timePeriodInHours <= 7 * 24 ? 7 : 12,
+                    maxTicksLimit: timePeriodInHours === 24 ? 24 : timePeriodInHours <= 7 * 24 ? 7 : 12,
                 },
             },
             y: {
                 beginAtZero: false,
+                ticks: {
+                    callback: function (value: number | string) {
+                        return millify(Number(value));
+                    }
+                }
             },
         },
     };
@@ -244,7 +253,7 @@ const LineChart: React.FC<LineChartProps> = ({ coinId }) => {
                                 ? 'Market Cap'
                                 : 'Volume'}
                         : {currencySymbol}
-                        {millify(Number(currentValue))}
+                        {millify(Number(currentValue), { precision: 3})}
                     </Title>
                 </Col>
             </Row>

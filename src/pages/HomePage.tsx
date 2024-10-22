@@ -20,7 +20,7 @@ const HomePage = () => {
             </div>
 
 
-            <Cryptocurrencies limit={10} showSearchAndTitle={false}/>
+            <Cryptocurrencies limit={10} showTitle={false}/>
         </>
     );
 };
