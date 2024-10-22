@@ -1,4 +1,4 @@
-import { HashRouter as Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 import {Layout, Typography, Space, Avatar} from 'antd';
 import './App.css'
 import { Navbar, Exchanges, HomePage, Cryptocurrencies, CryptoDetails } from './components';
