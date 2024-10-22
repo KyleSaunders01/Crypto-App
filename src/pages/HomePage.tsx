@@ -1,6 +1,6 @@
 import { Typography } from 'antd';
 import { Link } from 'react-router-dom';
-import { Cryptocurrencies } from '../components';
+import { Cryptocurrencies } from '../components'
 import GlobalCryptoStats from '../components/HomePage/GlobalCryptoStats.tsx';
 
 const { Title } = Typography;

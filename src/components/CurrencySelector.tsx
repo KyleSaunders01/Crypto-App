@@ -1,9 +1,7 @@
-// src/components/CurrencySelector.tsx
-
 import React from 'react';
 import { Modal, List, Typography } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrency } from '../app/currencySlice';
+import { setSelectedCurrency } from '../app/currencySlice';
 import type { RootState } from '../app/store';
 
 const { Text } = Typography;
@@ -30,14 +28,14 @@ const CurrencySelector: React.FC<CurrencySelectorProps> = ({
     );
 
     const handleCurrencyChange = (currencyCode: string) => {
-        dispatch(setCurrency(currencyCode));
+        dispatch(setSelectedCurrency(currencyCode));
         setIsModalVisible(false);
     };
 
     return (
         <Modal
             title="Select Currency"
-            visible={isModalVisible}
+            open={isModalVisible}
             onCancel={() => setIsModalVisible(false)}
             footer={null}
         >

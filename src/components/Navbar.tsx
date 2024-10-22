@@ -1,6 +1,4 @@
-// src/components/Navbar.tsx
-
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button, Menu, Typography, Avatar } from 'antd';
 import { Link } from 'react-router-dom';
 import {
@@ -15,26 +13,32 @@ import CurrencySelector from './CurrencySelector';
 
 const Navbar: React.FC = () => {
     const [activeMenu, setActiveMenu] = useState(true);
-    const [screenSize, setScreenSize] = useState<number | null>(null);
     const [isModalVisible, setIsModalVisible] = useState(false);
 
-    useEffect(() => {
-        const handleResize = () => setScreenSize(window.innerWidth);
-
-        window.addEventListener('resize', handleResize);
-
-        handleResize();
-
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
-    useEffect(() => {
-        if (screenSize && screenSize < 768) {
-            setActiveMenu(false);
-        } else {
-            setActiveMenu(true);
-        }
-    }, [screenSize]);
+    const menuItems = [
+        {
+            key: 'home',
+            icon: <HomeOutlined />,
+            label: <Link to="/">Home</Link>,
+        },
+        {
+            key: 'cryptocurrencies',
+            icon: <FundOutlined />,
+            label: <Link to="/cryptocurrencies">Cryptocurrencies</Link>,
+        },
+        {
+            key: 'exchanges',
+            icon: <MoneyCollectOutlined />,
+            label: <Link to="/exchanges">Exchanges</Link>,
+        },
+        {
+            key: 'currency',
+            icon: <BankOutlined />,
+            label: 'Choose Currency',
+            onClick: () => setIsModalVisible(true),
+            className: 'currency-select',
+        },
+    ];
 
     return (
         <div className="nav-container">
@@ -51,27 +55,8 @@ const Navbar: React.FC = () => {
                 </Button>
             </div>
             {activeMenu && (
-                <Menu theme="dark">
-                    <Menu.Item key="home" icon={<HomeOutlined/>}>
-                        <Link to="/">Home</Link>
-                    </Menu.Item>
-                    <Menu.Item key="cryptocurrencies" icon={<FundOutlined/>}>
-                        <Link to="/cryptocurrencies">Cryptocurrencies</Link>
-                    </Menu.Item>
-                    <Menu.Item key="exchanges" icon={<MoneyCollectOutlined />}>
-                        <Link to="/exchanges">Exchanges</Link>
-                    </Menu.Item>
-                    <Menu.Item
-                        key="currency"
-                        icon={<BankOutlined />}
-                        onClick={() => setIsModalVisible(true)}
-                        className="currency-select"
-                    >
-                        Choose Currency
-                    </Menu.Item>
-                </Menu>
+                <Menu theme="dark" items={menuItems}/>
             )}
-            {/* Render CurrencySelector outside of the Menu */}
             <CurrencySelector
                 isModalVisible={isModalVisible}
                 setIsModalVisible={setIsModalVisible}

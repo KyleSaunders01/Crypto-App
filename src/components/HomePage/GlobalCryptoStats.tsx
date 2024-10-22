@@ -30,11 +30,13 @@ const GlobalCryptoStats = () => {
     }
 
     const globalStats = globalStatsResponse?.data;
-    const marketCap = globalStats?.total_market_cap?.[selectedCurrency] || 'N/A';
-    const volume = globalStats?.total_volume?.[selectedCurrency] || 'N/A';
-    const marketCapChange = globalStats?.market_cap_change_percentage_24h_usd || 'N/A';
-    const btcDominance = globalStats?.market_cap_percentage?.btc ?? 'N/A';
-    const ethDominance = globalStats?.market_cap_percentage?.eth ?? 'N/A';
+    const marketCap = Number(globalStats?.total_market_cap?.[selectedCurrency]) || 0;
+    const volume = Number(globalStats?.total_volume?.[selectedCurrency]) || 0;
+    const marketCapChange = Number(globalStats?.market_cap_change_percentage_24h_usd) || 0;
+    const btcDominance = Number(globalStats?.market_cap_percentage?.btc) || 0;
+    const ethDominance = Number(globalStats?.market_cap_percentage?.eth) || 0;
+    const totalCryptocurrencies = Number(globalStats?.active_cryptocurrencies) || 0;
+    const totalExchanges = Number(globalStats?.markets) || 0;
 
     return (
         <div className="global-crypto-stats">
@@ -45,22 +47,22 @@ const GlobalCryptoStats = () => {
             <Row gutter={[32, 32]}>
                 <CustomStatistic
                     title="Total Cryptocurrencies"
-                    value={millify(globalStats?.active_cryptocurrencies, { precision: 2 })}
+                    value={millify(totalCryptocurrencies, { precision: 2 })}
                     isLoading={isFetching}
                 />
                 <CustomStatistic
                     title="Total Exchanges"
-                    value={millify(globalStats?.markets, { precision: 2 })}
+                    value={millify(totalExchanges, { precision: 2 })}
                     isLoading={isFetching}
                 />
                 <CustomStatistic
                     title={`Total Market Cap (${selectedCurrency.toUpperCase()})`}
-                    value={marketCap !== 'N/A' ? `${currencySymbol}${millify(marketCap, { precision: 2 })}` : 'N/A'}
+                    value={marketCap > 0 ? `${currencySymbol}${millify(marketCap, { precision: 2 })}` : 'N/A'}
                     isLoading={isFetching}
                 />
                 <CustomStatistic
                     title={`Total 24h Volume (${selectedCurrency.toUpperCase()})`}
-                    value={volume !== 'N/A' ? `${currencySymbol}${millify(volume, { precision: 2 })}` : 'N/A'}
+                    value={volume > 0 ? `${currencySymbol}${millify(volume, { precision: 2 })}` : 'N/A'}
                     isLoading={isFetching}
                 />
                 <CustomStatistic

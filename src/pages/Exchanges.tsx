@@ -12,7 +12,6 @@ const { Panel } = Collapse;
 const Exchanges: React.FC = () => {
     const { data: exchangesList, isFetching, error, refetch } = useGetExchangesQuery();
 
-    // Loading state
     if (isFetching) {
         return (
             <>
@@ -22,16 +21,16 @@ const Exchanges: React.FC = () => {
                 <Divider />
                 <Row style={{ marginBottom: '16px' }}>
                     <Col span={6}>
-                        <Title level={4} style={{ textTransform: 'uppercase' }}>Exchanges</Title>
+                        <Title level={4} className="title-mobile">Exchanges</Title>
                     </Col>
                     <Col span={6}>
-                        <Title level={4} style={{ textTransform: 'uppercase' }}>24h Trade Volume (BTC)</Title>
+                        <Title level={4} className="title-mobile">24h Trade Volume (BTC)</Title>
                     </Col>
                     <Col span={6}>
-                        <Title level={4} style={{ textTransform: 'uppercase' }}>Country</Title>
+                        <Title level={4} className="title-mobile">Country</Title>
                     </Col>
                     <Col span={6}>
-                        <Title level={4} style={{ textTransform: 'uppercase' }}>Trust Score</Title>
+                        <Title level={4} className="title-mobile">Trust Score</Title>
                     </Col>
                 </Row>
                 <Row>
